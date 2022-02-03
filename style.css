@@ -1,0 +1,33 @@
+#title {
+	border-bottom-style: solid;
+	text-align: center;
+	font-family: "Courier New";
+	font-size: 80px;
+	margin-top: 5px;
+	position: relative;
+	width: 25%;
+	left: 37.5%;
+}
+
+#game-board {
+	left: 25%;
+	width: 50%;
+	height: 75%;
+	position: relative;
+}
+
+div#game-board p{
+	text-align: center;
+	font-family: "Courier New";
+	font-size: 80px;
+	height: 5%;
+}
+
+html, body{
+    height: 100%;
+}
+
+body {
+	background-color: #d9efeb;
+}
+
