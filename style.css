@@ -1,26 +1,35 @@
 #title {
-	border-bottom-style: solid;
+	border-style: solid;
 	text-align: center;
 	font-family: "Courier New";
-	font-size: 80px;
+	font-size: 400%;
 	margin-top: 5px;
-	position: relative;
-	width: 25%;
-	left: 37.5%;
+	position: sticky;
+	background-color: #9EC3A0;
 }
 
-#game-board {
+.game-board {
 	left: 25%;
 	width: 50%;
-	height: 75%;
+	min-width: 50%;
+	margin-bottom: 1%;
+	height: 10%;
 	position: relative;
+	display: flex;
+	justify-content: center;
 }
 
-div#game-board p{
+div.game-board div{
+	display: inline-block;
 	text-align: center;
 	font-family: "Courier New";
-	font-size: 80px;
-	height: 5%;
+	font-size: 300%;
+	height: 100%;
+	width: 8%;
+	margin: 0 auto;
+	border-style: solid;
+	position: relative;
+	background-color: #9EC3A0;
 }
 
 html, body{
@@ -28,6 +37,6 @@ html, body{
 }
 
 body {
-	background-color: #d9efeb;
+	background-color: #B9DABA;
 }
 
