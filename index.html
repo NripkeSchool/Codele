@@ -7,29 +7,99 @@
 </head>
 
 <body>
+
+<script>
+  var currentPos = 1;
+  var row = 0;
+  var statement = "";
+
+  function buttonAdd(element)
+  {
+    var b = element.id;
+    var pos = "b"+((row*10) + currentPos);
+    var lastPos = "b"+((row*10) + currentPos - 1);
+
+    if (b == "DEL" && (currentPos-1) > 0)
+    {
+        document.getElementById(lastPos).innerHTML = "";
+        currentPos--;
+        return;
+    }else if (b == "ENT" && currentPos==11)
+    {
+        row++;
+        currentPos = 1;
+        console.log(statement);
+        return;
+    }
+
+    
+    if (currentPos == 11 || b == "ENT" || b == "DEL") {return;}
+
+    document.getElementById(pos).innerHTML = b;
+    currentPos++;
+    statement += addStatement(b);
+  }
+
+  function addStatement(id)
+  {
+        /*
+        * T = true
+        * F = false
+        * N = not 
+        * O = or 
+        * A = and 
+        * X = xor 
+        */
+
+        if (id == "T") {return id;}else if (id == "F") {return id;}else{ return id.charAt(0);}
+  }
+
+  function checkViable(msg)
+  {
+    
+  }
+
+  function isBoolean(character)
+  {
+        return character == 'T' || character == 'F';
+  }
+</script>
+
+
   <div id="top-screen">
     <h1 id="title"> !wORd1e </h1>
   </div>
 
   <div class="game-board">
-    <div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div>
+    <div id="b1"> </div><div id="b2"> </div><div id="b3"> </div><div id="b4"> </div><div id="b5"> </div><div id="b6"> </div><div id="b7"> </div><div id="b8"> </div><div id="b9"> </div><div id="b10"> </div>
   </div>
   <div class="game-board">
-    <div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div>
+    <div id="b11"> </div><div id="b12"> </div><div id="b13"> </div><div id="b14"> </div><div id="b15"> </div><div id="b16"> </div><div id="b17"> </div><div id="b18"> </div><div id="b19"> </div><div id="b20"> </div>
   </div>
   <div class="game-board">
-    <div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div>
+    <div id="b21"> </div><div id="b22"> </div><div id="b23"> </div><div id="b24"> </div><div id="b25"> </div><div id="b26"> </div><div id="b27"> </div><div id="b28"> </div><div id="b29"> </div><div id="b30"> </div>
   </div>
   <div class="game-board">
-    <div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div>
+    <div id="b31"> </div><div id="b32"> </div><div id="b33"> </div><div id="b34"> </div><div id="b35"> </div><div id="b36"> </div><div id="b37"> </div><div id="b38"> </div><div id="b39"> </div><div id="b40"> </div>
   </div>
   <div class="game-board">
-    <div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div><div> </div>
+    <div id="b41"> </div><div id="b42"> </div><div id="b43"> </div><div id="b44"> </div><div id="b45"> </div><div id="b46"> </div><div id="b47"> </div><div id="b48"> </div><div id="b49"> </div><div id="b50"> </div>
   </div>
   
+  <br><br><br>
+
   <div id="button-board">
-    <button id="true">True</button>
-    <button id="false">False</button>
+    <button id="T" onclick="buttonAdd(this)">True</button>
+    <button id="F" onclick="buttonAdd(this)">False</button>
+    <button id="NOT" onclick="buttonAdd(this)">Not</button>
+    <button id="OR" onclick="buttonAdd(this)">Or</button>
+    <button id="AND" onclick="buttonAdd(this)">And</button>
+    <button id="XOR" onclick="buttonAdd(this)">Xor</button>
+  </div>
+    <br>
+  <div id="button-board2">
+    <button id="DEL" onclick="buttonAdd(this)">Delete X</button>
+    <button id="ENT" onclick="buttonAdd(this)">Enter --></button>
   </div>
 </body>
 
