@@ -30,7 +30,7 @@
 	font-family: "Courier New";
 	width: 10%;
 	height: 100%;
-	font-size: 150%;
+	font-size: 1.25vw;
 	margin: 0 auto;
 	font-weight: bold;
 }
@@ -46,7 +46,7 @@
 	font-family: "Courier New";
 	width: 10%;
 	height: 100%;
-	font-size: 150%;
+	font-size: 1.25vw;
 	margin: 0 auto;
 	font-weight: bold;
 }
@@ -62,7 +62,7 @@
 	font-family: "Courier New";
 	width: 30%;
 	height: 100%;
-	font-size: 150%;
+	font-size: 1.25vw;
 	margin: 0 auto;
 	font-weight: bold;
 }
@@ -78,7 +78,7 @@
 	font-family: "Courier New";
 	width: 30%;
 	height: 100%;
-	font-size: 150%;
+	font-size: 1.25vw;
 	margin: 0 auto;
 	font-weight: bold;
 }
@@ -106,7 +106,7 @@ div.game-board div{
 	text-align: center;
 	line-height: 250%;
 	font-family: "Courier New";
-	font-size: 250%;
+	font-size: 2vw;
 	height: 100%;
 	width: 8%;
 	margin: 0 auto;
