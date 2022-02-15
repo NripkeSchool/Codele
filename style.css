@@ -38,7 +38,7 @@
 	margin: 0 auto;
 	font-weight: bold;
 	color: #B0D264;
-	-webkit-text-stroke: 2px black;
+	-webkit-text-stroke: .1vw black;
 }
 
 #button-board button:hover {
@@ -60,7 +60,7 @@
 	margin: 0 auto;
 	font-weight: bold;
 	color: #B0D264;
-	-webkit-text-stroke: 2px black;
+	-webkit-text-stroke: .1vw black;
 }
 
 #button-board2 button:hover {
@@ -91,7 +91,7 @@ div.game-board div{
 	text-align: center;
 	line-height: 250%;
 	font-family: "Courier New";
-	font-size: 250%;
+	font-size: 2.2vw;
 	height: 100%;
 	width: 8%;
 	margin: 0 auto;
@@ -100,7 +100,7 @@ div.game-board div{
 	background-color: #4C8955;
 	font-weight: bold;
 	color: #B0D264;
-	-webkit-text-stroke: 2px black;
+	-webkit-text-stroke: .1vw black;
 	border-color: black;
 }
 

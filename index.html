@@ -45,18 +45,24 @@
         /*
         * T = true
         * F = false
-        * N = not 
-        * O = or 
-        * A = and 
-        * X = xor 
+        * ! = not 
+        * | = or 
+        * & = and 
+        * ^ = xor 
         */
 
-        if (id == "T") {return id;}else if (id == "F") {return id;}else{ return id.charAt(0);}
+        if (id == "T" || id == "F") {return id;}else {return id.charAt(0);}
   }
 
   function checkViable(msg)
   {
-    
+    //First look for NOTs
+	let nMsg = msg;
+	for (let i = 0; i<msg.match(/!/g).length(); i++)
+	{
+		let index = nMsg.indexOf("!");
+		
+	}
   }
 
   function isBoolean(character)
@@ -89,12 +95,12 @@
   <br><br><br>
 
   <div id="button-board">
-    <button id="T" onclick="buttonAdd(this)">True</button>
-    <button id="F" onclick="buttonAdd(this)">False</button>
-    <button id="NOT" onclick="buttonAdd(this)">Not</button>
-    <button id="OR" onclick="buttonAdd(this)">Or</button>
-    <button id="AND" onclick="buttonAdd(this)">And</button>
-    <button id="XOR" onclick="buttonAdd(this)">Xor</button>
+    <button id="T" onclick="buttonAdd(this)">T</button>
+    <button id="F" onclick="buttonAdd(this)">F</button>
+    <button id="!" onclick="buttonAdd(this)"> ! </button>
+    <button id="||" onclick="buttonAdd(this)"> ||</button>
+    <button id="&&" onclick="buttonAdd(this)"> && </button>
+    <button id="^" onclick="buttonAdd(this)"> ^ </button>
   </div>
     <br>
   <div id="button-board2">
