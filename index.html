@@ -29,6 +29,7 @@
         row++;
         currentPos = 1;
         console.log(statement);
+        console.log(checkViable(statement));
         return;
     }
 
@@ -57,12 +58,26 @@
   function checkViable(msg)
   {
     //First look for NOTs
-	let nMsg = msg;
-	for (let i = 0; i<msg.match(/!/g).length(); i++)
-	{
-		let index = nMsg.indexOf("!");
-		
-	}
+	
+
+    if (msg.match(/!/g) != null)
+    {
+        let nMsg = msg; 
+        for (let i = 0; i<msg.match(/!/g).length; i++)
+	    {
+		    let index = nMsg.indexOf("!");
+            if (index == nMsg.length) {console.log("Invalid Sequence");}
+
+            if (isBoolean(nMsg.charAt(index+1)))
+            {
+                if (nMsg.charAt(index+1) == 'T') {nMsg = nMsg.replace("!T", "F");}else {nMsg = nMsg.replace("!F", "T");}  
+            }else {
+                console.log("Invalid Sequence");
+            }
+        }
+        msg = nMsg;
+    }
+	return msg;
   }
 
   function isBoolean(character)
