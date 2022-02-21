@@ -9,27 +9,43 @@
 <body>
 
 <script>
-  var currentPos = 1;
-  var row = 0;
-  var statement = "";
+  let currentPos = 1;
+  let row = 0;
+  let statement = "";
+  let answer = "!FO!T&FX!T";
 
   function buttonAdd(element)
   {
-    var b = element.id;
-    var pos = "b"+((row*10) + currentPos);
-    var lastPos = "b"+((row*10) + currentPos - 1);
+    let b = element.id;
+    let pos = "b"+((row*10) + currentPos);
+    let lastPos = "b"+((row*10) + currentPos - 1);
 
     if (b == "DEL" && (currentPos-1) > 0)
     {
         document.getElementById(lastPos).innerHTML = "";
         currentPos--;
+        statement = statement.slice(0, statement.length);
         return;
     }else if (b == "ENT" && currentPos==11)
     {
-        row++;
-        currentPos = 1;
         console.log(statement);
-        console.log(checkViable(statement));
+
+        let result = checkViable(statement);
+        console.log(result);
+
+        if (result == false)
+        {
+            //Tell them it's unreadable
+        }
+
+        if (isBoolean(result))
+        {
+            //Tell them it's a success!
+            checkGuess(statement);
+            row++;
+            currentPos = 1;
+            statement = "";
+        }
         return;
     }
 
@@ -39,6 +55,24 @@
     document.getElementById(pos).innerHTML = b;
     currentPos++;
     statement += addStatement(b);
+  }
+
+  function checkGuess(guess)
+  {
+     console.log(guess);
+     console.log(answer);
+     for (let i = 0; i<guess.length; i++)
+     {
+        if (guess.charAt(i) == answer.charAt(i))
+        {
+            console.log("GREEN");
+        }else if (answer.indexOf(guess.charAt(i) != null))
+        {
+            console.log("YELLOW");   
+        }else {
+            console.log("RED");
+        }
+     }
   }
 
   function addStatement(id)
@@ -51,14 +85,21 @@
         * & = and 
         * ^ = xor 
         */
-
-        if (id == "T" || id == "F") {return id;}else {return id.charAt(0);}
+        if (id == "||")
+        {
+            return "O";
+        }
+        if (id == "^")
+        {
+            return "X";
+        }
+        return id.charAt(0);
   }
 
   function checkViable(msg)
   {
     //First look for NOTs
-	
+	//Order of precendence is NOT, AND, (OR, XOR) Read from left to right
 
     if (msg.match(/!/g) != null)
     {
@@ -66,17 +107,117 @@
         for (let i = 0; i<msg.match(/!/g).length; i++)
 	    {
 		    let index = nMsg.indexOf("!");
-            if (index == nMsg.length) {console.log("Invalid Sequence");}
+            if (index == nMsg.length) {console.log("Invalid Sequence"); return false;}
 
             if (isBoolean(nMsg.charAt(index+1)))
             {
                 if (nMsg.charAt(index+1) == 'T') {nMsg = nMsg.replace("!T", "F");}else {nMsg = nMsg.replace("!F", "T");}  
             }else {
-                console.log("Invalid Sequence");
+                console.log("Invalid Sequence");  return false;
+            }
+        }
+        msg = nMsg;
+        console.log(msg);
+    }
+
+    if (msg.match(/&/g) != null)
+    {
+        let nMsg = msg;
+        for (let i = 0; i<msg.match(/&/g).length; i++)
+        {
+            let index = nMsg.indexOf("&");
+            if (index == nMsg.length || index == 0) {console.log("Invalid Sequence"); return false;}
+
+            let c1 = nMsg.charAt(index-1);
+            let c2 = nMsg.charAt(index+1);
+
+            if (isBoolean(c1) && isBoolean(c2))
+            {
+                if (c1 == 'F' && c2 == 'T')
+                {
+                    nMsg = nMsg.replace("F&T", "F");
+                }else if (c2 == 'F' && c1 == 'T')
+                {
+                    nMsg = nMsg.replace("T&F", "F");
+                }else if (c1 == 'F' && c2 == 'F')
+                {
+                    nMsg = nMsg.replace("F&F", "F");
+                }else {
+                    nMsg = nMsg.replace("T&T", "T");
+                }
+            }else {
+                console.log("Invalid Sequence");  return false;
+            }
+        }
+        msg = nMsg;
+        console.log(msg);
+    }
+
+    if (msg.match(/O/g) != null)
+    {
+        let nMsg = msg;
+        for (let i = 0; i<msg.match(/O/g).length; i++)
+        {
+            let index = nMsg.indexOf("O");
+            if (index == nMsg.length || index == 0) {console.log("Invalid Sequence"); return false;}
+
+            let c1 = nMsg.charAt(index-1);
+            let c2 = nMsg.charAt(index+1);
+
+            if (isBoolean(c1) && isBoolean(c2))
+            {
+                if (c1 == 'F' && c2 == 'T')
+                {
+                    nMsg = nMsg.replace("FOT", "T");
+                }else if (c2 == 'F' && c1 == 'T')
+                {
+                    nMsg = nMsg.replace("TOF", "T");
+                }else if (c1 == 'F' && c2 == 'F')
+                {
+                    nMsg = nMsg.replace("FOF", "F");
+                }else {
+                    nMsg = nMsg.replace("TOT", "T");
+                }
+            }else {
+                console.log("Invalid Sequence");  return false;
+            }
+        }
+        msg = nMsg;
+        console.log(msg);
+    }
+
+    if (msg.match(/X/g) != null)
+    {
+        let nMsg = msg;
+        for (let i = 0; i<msg.match(/X/g).length; i++)
+        {
+            let index = nMsg.indexOf("X");
+            if (index == nMsg.length || index == 0) {console.log("Invalid Sequence"); return false;}
+
+            let c1 = nMsg.charAt(index-1);
+            let c2 = nMsg.charAt(index+1);
+
+            if (isBoolean(c1) && isBoolean(c2))
+            {
+                if (c1 == 'F' && c2 == 'T')
+                {
+                    nMsg = nMsg.replace("FXT", "T");
+                }else if (c2 == 'F' && c1 == 'T')
+                {
+                    nMsg = nMsg.replace("TXF", "T");
+                }else if (c1 == 'F' && c2 == 'F')
+                {
+                    nMsg = nMsg.replace("FXF", "F");
+                }else {
+                    nMsg = nMsg.replace("TXT", "F");
+                }
+            }else {
+                console.log("Invalid Sequence");  return false;
             }
         }
         msg = nMsg;
     }
+
 	return msg;
   }
 
