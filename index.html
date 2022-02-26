@@ -24,7 +24,7 @@
     {
         document.getElementById(lastPos).innerHTML = "";
         currentPos--;
-        statement = statement.slice(0, statement.length);
+        statement = statement.slice(0, statement.length-1);
         return;
     }else if (b == "ENT" && currentPos==11)
     {
@@ -36,12 +36,26 @@
         if (result == false)
         {
             //Tell them it's unreadable
+            return;
         }
 
         if (isBoolean(result))
         {
             //Tell them it's a success!
-            checkGuess(statement);
+            let squares = checkGuess(statement);
+            for (let i = 0; i<10; i++)
+            {
+                if (squares[i] == "G")
+                {
+                    document.getElementById("b"+((row*10) + i + 1)).classList.add('right');
+                }else if (squares[i] == "Y")
+                {
+                    document.getElementById("b"+((row*10) + i + 1)).classList.add('exists');
+                }else {
+                    document.getElementById("b"+((row*10) + i + 1)).classList.add('wrong');
+                }
+            }
+
             row++;
             currentPos = 1;
             statement = "";
@@ -59,20 +73,32 @@
 
   function checkGuess(guess)
   {
-     console.log(guess);
-     console.log(answer);
-     for (let i = 0; i<guess.length; i++)
+     let squares = ["B", "B", "B", "B", "B", "B", "B", "B", "B", "B"]; 
+     let tempA = answer;
+
+     for (let i = 0; i<10; i++)
      {
-        if (guess.charAt(i) == answer.charAt(i))
-        {
-            console.log("GREEN");
-        }else if (answer.indexOf(guess.charAt(i) != null))
-        {
-            console.log("YELLOW");   
-        }else {
-            console.log("RED");
-        }
+          if (guess.charAt(i) == answer.charAt(i))
+          {
+                squares[i] = "G";
+                tempA = tempA.replace(guess.charAt(i), "");
+          }
      }
+
+     for (let i = 0; i<10; i++)
+     {
+          if (squares[i] == "G")
+          {
+            continue;
+          }
+
+          if (tempA.indexOf(guess.charAt(i)) != -1)
+          {
+            squares[i] = "Y";
+            tempA = tempA.replace(guess.charAt(i), "");
+          }
+     }
+     return squares;
   }
 
   function addStatement(id)
