@@ -104,6 +104,18 @@ div.game-board div{
 	border-color: black;
 }
 
+.wrong {
+	background-color: #3E3E3E!important;
+}
+
+.right {
+	background-color: #2DEB14!important;
+}
+
+.exists {
+	background-color: #E7EB14!important;
+}
+
 html, body{
     height: 100%;
     margin: 0 0;
