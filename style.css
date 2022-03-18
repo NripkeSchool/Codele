@@ -116,6 +116,49 @@ div.game-board div{
 	background-color: #E7EB14!important;
 }
 
+.inv {
+	visibility: hidden!important;
+}
+
+.vis {
+	visibility: visible!important;
+}
+
+#game-over {
+	z-index: 3;
+	position: absolute;
+	background-color: #FFFAED;
+	height: 50%;
+	width: 25%;
+	left: 37.5%;
+	top: 25%;
+	border-radius: .3vw;
+	border-width: .1vw;
+	border-color: black;
+	border-style: solid;
+}
+
+#game-over-shadow {
+	z-index: 2;
+	position: absolute;
+	background-color: black;
+	height: 50%;
+	width: 25%;
+	left: 38.5%;
+	top: 27%;
+	border-radius: .3vw;
+}
+
+#grayOut {
+	z-index: 1;
+	background-color: black;
+	opacity: 0.7;
+	height: 100%;
+	width: 100%;
+	top: 0%;
+	position: absolute;
+}
+
 html, body{
     height: 100%;
     margin: 0 0;
