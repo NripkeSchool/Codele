@@ -12,10 +12,13 @@
   let currentPos = 1;
   let row = 0;
   let statement = "";
-  let answer = "!FO!T&FX!T";
-
+  let answer = generateAnswer();
+  let gameOver = false;
+ 
   function buttonAdd(element)
   {
+    if (gameOver) {return;}
+
     let b = element.id;
     let pos = "b"+((row*10) + currentPos);
     let lastPos = "b"+((row*10) + currentPos - 1);
@@ -31,10 +34,10 @@
         console.log(statement);
 
         let result = checkViable(statement);
-        console.log(result);
 
         if (result == false)
         {
+            alert("Invalid sequence!");
             //Tell them it's unreadable
             return;
         }
@@ -59,6 +62,19 @@
             row++;
             currentPos = 1;
             statement = "";
+
+            if (allRight(squares))
+            {
+                gameOver = true;
+                row = 0;
+                createGameEnd();
+            }else if (row == 5)
+            {
+                gameOver = true;
+                row = 0;
+                createGameEnd();
+            }
+
         }
         return;
     }
@@ -69,6 +85,41 @@
     document.getElementById(pos).innerHTML = b;
     currentPos++;
     statement += addStatement(b);
+  }
+
+  function allRight(squares)
+  {
+     for (let i = 0; i<10; i++)
+     {
+          if (squares[i] != "G")
+          {
+                return false;
+          }
+     }
+     return true;
+  }
+
+  function createGameEnd()
+  {
+      document.getElementById("game-over").classList.remove("inv");
+      document.getElementById("game-over-shadow").classList.remove("inv");
+      document.getElementById("grayOut").classList.remove("inv");
+  }
+
+  function generateAnswer()
+  {
+    let choices = ["T", "F", "!", "&", "O", "X"];
+    let newA = "";
+    while(!isBoolean(checkViable(newA)))
+    {
+        newA = "";
+        for (let i = 0; i<10; i++)
+        {
+            let r = Math.floor(Math.random()*6);
+            newA += choices[r];
+        }
+    }
+    return newA;
   }
 
   function checkGuess(guess)
@@ -133,17 +184,16 @@
         for (let i = 0; i<msg.match(/!/g).length; i++)
 	    {
 		    let index = nMsg.indexOf("!");
-            if (index == nMsg.length) {console.log("Invalid Sequence"); return false;}
+            if (index == nMsg.length) { return false;}
 
             if (isBoolean(nMsg.charAt(index+1)))
             {
                 if (nMsg.charAt(index+1) == 'T') {nMsg = nMsg.replace("!T", "F");}else {nMsg = nMsg.replace("!F", "T");}  
             }else {
-                console.log("Invalid Sequence");  return false;
+               return false;
             }
         }
         msg = nMsg;
-        console.log(msg);
     }
 
     if (msg.match(/&/g) != null)
@@ -152,7 +202,7 @@
         for (let i = 0; i<msg.match(/&/g).length; i++)
         {
             let index = nMsg.indexOf("&");
-            if (index == nMsg.length || index == 0) {console.log("Invalid Sequence"); return false;}
+            if (index == nMsg.length || index == 0) {return false;}
 
             let c1 = nMsg.charAt(index-1);
             let c2 = nMsg.charAt(index+1);
@@ -172,11 +222,10 @@
                     nMsg = nMsg.replace("T&T", "T");
                 }
             }else {
-                console.log("Invalid Sequence");  return false;
+                 return false;
             }
         }
         msg = nMsg;
-        console.log(msg);
     }
 
     if (msg.match(/O/g) != null)
@@ -185,7 +234,7 @@
         for (let i = 0; i<msg.match(/O/g).length; i++)
         {
             let index = nMsg.indexOf("O");
-            if (index == nMsg.length || index == 0) {console.log("Invalid Sequence"); return false;}
+            if (index == nMsg.length || index == 0) {return false;}
 
             let c1 = nMsg.charAt(index-1);
             let c2 = nMsg.charAt(index+1);
@@ -205,11 +254,10 @@
                     nMsg = nMsg.replace("TOT", "T");
                 }
             }else {
-                console.log("Invalid Sequence");  return false;
+               return false;
             }
         }
         msg = nMsg;
-        console.log(msg);
     }
 
     if (msg.match(/X/g) != null)
@@ -218,7 +266,7 @@
         for (let i = 0; i<msg.match(/X/g).length; i++)
         {
             let index = nMsg.indexOf("X");
-            if (index == nMsg.length || index == 0) {console.log("Invalid Sequence"); return false;}
+            if (index == nMsg.length || index == 0) {return false;}
 
             let c1 = nMsg.charAt(index-1);
             let c2 = nMsg.charAt(index+1);
@@ -238,7 +286,7 @@
                     nMsg = nMsg.replace("TXT", "F");
                 }
             }else {
-                console.log("Invalid Sequence");  return false;
+               return false;
             }
         }
         msg = nMsg;
@@ -257,6 +305,13 @@
   <div id="top-screen">
     <h1 id="title"> !wORd1e </h1>
   </div>
+
+  <div id="game-over" class="inv">
+  ajohsdfouhoauhoiuh HELLO
+  </div>
+  <div id="game-over-shadow" class="inv"></div>
+
+  <div id="grayOut" class="inv"> </div>
 
   <div class="game-board">
     <div id="b1"> </div><div id="b2"> </div><div id="b3"> </div><div id="b4"> </div><div id="b5"> </div><div id="b6"> </div><div id="b7"> </div><div id="b8"> </div><div id="b9"> </div><div id="b10"> </div>
